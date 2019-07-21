@@ -1,11 +1,11 @@
-import axios from "axios";
 //// project files
 import { ADD_DAY, EDIT_DAY, GET_DAYS } from "./actionTypes";
+import axios from '../API/axiosApi';
 
 //////////////////////////////
 export const deleteDay = selectedRows => async dispatch => {
-  const request = await axios.all(
-    selectedRows.map(row => axios.delete(`http://localhost:3001/days/${row}`))
+  const request = await Promise.all(
+    selectedRows.map(row => axios.delete(`days/${row}`))
   );
   dispatch(fetchDays());
 };
@@ -18,7 +18,7 @@ export const editDay = values => async dispatch => {
     smokes
   };
   await axios({
-    url: `http://localhost:3001/days/${values.selectedRowToEdit.id}`,
+    url: `days/${values.selectedRowToEdit.id}`,
     method: "put",
     data: data
   });
@@ -35,7 +35,7 @@ export const addDay = values => async dispatch => {
     smokes
   };
   const response = await axios({
-    url: "http://localhost:3001/days",
+    url: "days",
     method: "post",
     data: data
   });
@@ -47,7 +47,7 @@ export const addDay = values => async dispatch => {
 };
 //////////////////////////////////
 export const fetchDays = () => async dispatch => {
-  const response = await axios.get("http://localhost:3001/days");
+  const response = await axios.get("days");
 
   dispatch({ type: GET_DAYS, payload: response.data });
 };

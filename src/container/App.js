@@ -7,7 +7,6 @@ import { withStyles } from "@material-ui/core";
 import AppMainBar from "../components/appMainBar/AppMainBar";
 import DaysTable from "./table/daysTable/DaysTable";
 import AddDay from "./AddDay";
-import { testAction } from "../actions/testAction";
 import { deleteDay, addDay, editDay, fetchDays } from "../actions/dataActions";
 
 const styles = themes => ({
@@ -105,30 +104,29 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { testAction, deleteDay, addDay, editDay, fetchDays }
+  { deleteDay, addDay, editDay, fetchDays }
 )(withStyles(styles)(App));
 
-//// 1) make delete row(s) work - done
-//// 2) add redux and read data from app store - done
-//// 3) change delete data to use redux - done
-///// 4) add places - done
-//// 5) bug...  it still show `selected` after deleting rows - done
-//// 6) edit trip table - done
-//// 7) add fake server - done
-//// 8) add places to each trip (complete  the form)  - done
-//// 9) show points/places on map via react router
-///// 10) question - is it better to fetch data after add or just add it to the redux state? - done
-//// 11) BUG - places state is not set to [] when you close the drawer via clicking on the page - done
-//// 12) put submit button at the bottom - done
-//// 13) add start and end time for the trip
-/// 14) make id random
-//// 15) for places input it cannot be submite as empty - done
-/// 16)  show places table if it has data - done
-/// 17) move `add this place to the trip`   button to the bottom of the add places section - done
-//// 18) add calcle button - done
-//// 19) add propTypes
-///////// 20) BUG, submiting added smokes won't work - i should send the put request to server in action creator - done
-///// 21) check the response and the dispatch
-//// 22)  BUG, table sort does nothing - done
-/// 23) BUG, table sort work incorectly after editing (happens when you add two-digits number)
-
+////  make delete row(s) work - done
+////  add redux and read data from app store - done
+////  change delete data to use redux - done
+/////  add places - done
+////  bug...  it still show `selected` after deleting rows - done
+////  edit trip table - done
+//// add fake server - done
+////  add places to each trip (complete  the form)  - done
+/////  question - is it better to fetch data after add or just add it to the redux state? - done
+////  BUG - places state is not set to [] when you close the drawer via clicking on the page - done
+////  put submit button at the bottom - done
+////  add date-selector for the day - done
+////  for places input it cannot be submite as empty - done
+///   show places table if it has data - done
+///  move `add this place to the trip`   button to the bottom of the add places section - done
+////  add calcle button - done
+////  add propTypes
+/////////  BUG, submiting added smokes won't work - i should send the put request to server in action creator - done
+////   BUG, table sort does nothing - done
+///  BUG, table sort work incorectly after editing (happens when you add two-digits number) - done
+////  show days/smokes on a graph in w new page handle via react router
+/////  check the response and if it has been successful dispatch the result or show error to users
+/// add a page explaing the app use
