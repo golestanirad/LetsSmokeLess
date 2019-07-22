@@ -8,11 +8,11 @@ To make the prototype working I also added the backend server to the project.
 
 ### `npm install`
 
-After you clone the repository you need to run `npm install` in both `.../lets-smoke-less` and `.../lets-smoke-less/server` roots.
+After you clone the repository you need to run `npm install` in both `/LearnReact` and `.../LearnReact/server` roots.
 
 ### `npm start`
 
-To start both servers (frontend & backend) all you need is just to run `npm start` in the project main root, `.../lets-smoke-less`
+To start both servers (frontend & backend) all you need is just to run `npm start` in the project main root, `/LearnReact`
 
 ## Backend Sever
 
