@@ -66,6 +66,12 @@
         }
       ],
       "id": 10
+    },
+    {
+      "day": "2019-07-06",
+      "targetNumberOfSmokes": 1,
+      "smokes": [],
+      "id": 11
     }
   ]
 }

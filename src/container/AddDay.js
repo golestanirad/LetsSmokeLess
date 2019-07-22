@@ -40,9 +40,9 @@ const mustBeNumberGreaterThanZiro = value =>
 const composeValidators = (...validators) => value =>
   validators.reduce((error, validator) => error || validator(value), undefined);
 ///////
+
 class AddDay extends React.Component {
   state = { smokes: [] };
-  /////
   onFormSubmit = values => {
     this.props.onFormSubmit(values);
   };

@@ -124,27 +124,26 @@ export default connect(
   { deleteDay, addDay, editDay, fetchDays }
 )(withStyles(styles)(App));
 
-////  make delete row(s) work - done
-////  add redux and read data from app store - done
-////  change delete data to use redux - done
-/////  add places - done
-////  bug...  it still show `selected` after deleting rows - done
-////  edit trip table - done
-//// add fake server - done
-////  add places to each trip (complete  the form)  - done
-/////  question - is it better to fetch data after add or just add it to the redux state? - done
-////  BUG - places state is not set to [] when you close the drawer via clicking on the page - done
-////  put submit button at the bottom - done
-////  add date-selector for the day - done
-////  for places input it cannot be submite as empty - done
-///   show places table if it has data - done
-///  move `add this place to the trip`   button to the bottom of the add places section - done
-////  add calcle button - done
-////  add propTypes
-/////////  BUG, submiting added smokes won't work - i should send the put request to server in action creator - done
-////   BUG, table sort does nothing - done
-///  BUG, table sort work incorectly after editing (happens when you add two-digits number) - done
-////  show days/smokes on a graph in w new page handle via react router
-/////  check the response and if it has been successful dispatch the result or show error to users
-/// add a page explaing the app use
-//// add propTypes to all pages if needed
+//// 1) make delete row(s) work - DONE
+//// 2) add redux and read data from app store - DONE
+//// 3) change delete data to use redux - DONE
+///// 4) add places - DONE
+//// 5) bug...  it still show `selected` after deleting rows - DONE
+//// 6) edit trip table - DONE
+//// 7) add fake server - DONE
+//// 8) add places to each trip (complete  the form)  - DONE
+///// 9) question - is it better to fetch data after add or just add it to the redux state? - DONE
+//// 10) BUG - places state is not set to [] when you close the drawer via clicking on the page - DONE
+//// 11) put submit button at the bottom - DONE
+//// 12) add date-selector for the day - DONE
+//// 13) for places input it cannot be submite as empty - DONE
+///  14) show places table if it has data - DONE
+/// 15) move `add this place to the trip`   button to the bottom of the add places section - DONE
+//// 16) add calcle button - DONE
+//// 17) BUG, submiting added smokes won't work - i should send the put request to server in action creator - DONE
+////  18) BUG, table sort does nothing - DONE
+/// 19) BUG, table sort work incorectly after editing (happens when you add two-digits number) - DONE
+//// 20) show days/smokes on a graph in w new page handle via react router - DONE
+///// 21) check the response and if it has been successful dispatch the result or show error to users
+/// 22) add a page explaing the app use
+//// 23) add propTypes to all pages if needed

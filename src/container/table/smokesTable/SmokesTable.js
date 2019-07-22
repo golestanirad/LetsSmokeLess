@@ -35,8 +35,6 @@ const styles = theme => ({
 });
 
 class SmokesTable extends React.Component {
-  ///////////
-
   render() {
     const { classes } = this.props;
     return (
