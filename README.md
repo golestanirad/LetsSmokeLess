@@ -1,4 +1,4 @@
-This project helps you to track the numbers of smokes that you have in a day and will warn you with different colors regarding the number of smokes that you have had and the target number that you set.
+This project helps you to track the number of smokes that you have in a day and will warn you with different colors regarding the number of smokes that you have had and the target number that you set.
 
 This app also provides you a graph where you can see how many smokes you've had on different days.
 
