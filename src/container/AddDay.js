@@ -17,8 +17,7 @@ import ButtonWithHtmlFor from "../components/button/ButtonWithHtmlFor";
 /////   materil UI styles
 const styles = theme => ({
   addDayPanel: {
-    padding: 10,
-    backgroundColor: "pink",
+    padding: 10,    
     width: window.innerWidth / 2,
     [theme.breakpoints.down("sm")]: {
       backgroundColor: "red",

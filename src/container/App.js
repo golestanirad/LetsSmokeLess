@@ -3,11 +3,15 @@ import { connect } from "react-redux";
 import _ from "lodash";
 /// materil ui
 import { withStyles } from "@material-ui/core";
+//// react router dom
+import { Router, Route, Switch } from "react-router-dom";
 //////  project files
 import AppMainBar from "../components/appMainBar/AppMainBar";
 import DaysTable from "./table/daysTable/DaysTable";
 import AddDay from "./AddDay";
+import Graph from "../container/Graph";
 import { deleteDay, addDay, editDay, fetchDays } from "../actions/dataActions";
+import history from "../ReactRouterHistory/history";
 
 const styles = themes => ({
   root: {}
@@ -32,7 +36,7 @@ class App extends React.Component {
     const selectedRowToEdit = _.find(
       this.props.data,
       row => row.id === selectedRows[0]
-    );    
+    );
     this.setState({
       isPanelOpen: true,
       selectedRowToEdit,
@@ -76,22 +80,35 @@ class App extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <AppMainBar handleAddDay={this.handleAddDay} />
-        <DaysTable
-          data={this.props.data}
-          handleDeleteDay={this.props.deleteDay}
-          handleEditDay={this.handleEditDay}
-        />
-
-        <AddDay
-          isAddPanelOpen={this.state.isPanelOpen}
-          toggleAddPanel={this.toggleAddPanel}
-          onSmokesFormSubmit={this.onSmokesFormSubmit}
-          onFormSubmit={this.onFormSubmit}
-          onFormCancle={this.onFormCancle}
-          selectedRowToEdit={this.state.selectedRowToEdit}
-          smokes={this.state.smokes}
-        />
+        <Router history={history}>
+          <AppMainBar handleAddDay={this.handleAddDay} />
+          <Route
+            path="/"
+            exact
+            render={routeProps => (
+              <DaysTable
+                {...routeProps}
+                data={this.props.data}
+                handleDeleteDay={this.props.deleteDay}
+                handleEditDay={this.handleEditDay}
+              />
+            )}
+          />
+          <Route
+            path="/newpage"
+            exact
+            render={routeProps => <Graph {...routeProps} data={this.props.data}/>}
+          />
+          <AddDay
+            isAddPanelOpen={this.state.isPanelOpen}
+            toggleAddPanel={this.toggleAddPanel}
+            onSmokesFormSubmit={this.onSmokesFormSubmit}
+            onFormSubmit={this.onFormSubmit}
+            onFormCancle={this.onFormCancle}
+            selectedRowToEdit={this.state.selectedRowToEdit}
+            smokes={this.state.smokes}
+          />
+        </Router>
       </div>
     );
   }
@@ -130,3 +147,4 @@ export default connect(
 ////  show days/smokes on a graph in w new page handle via react router
 /////  check the response and if it has been successful dispatch the result or show error to users
 /// add a page explaing the app use
+//// add propTypes to all pages if needed

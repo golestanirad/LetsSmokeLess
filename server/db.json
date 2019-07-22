@@ -1,3 +1,71 @@
 {
-  "days": []
+  "days": [
+    {
+      "day": "2019-07-05",
+      "targetNumberOfSmokes": 1,
+      "smokes": [
+        {
+          "place": "11",
+          "reason": "1",
+          "id": 0
+        },
+        {
+          "place": "1",
+          "reason": "11",
+          "id": 1
+        }
+      ],
+      "id": 6
+    },
+    {
+      "day": "2019-07-07",
+      "targetNumberOfSmokes": 3,
+      "smokes": [
+        {
+          "place": "3",
+          "reason": "3",
+          "id": 0
+        }
+      ],
+      "id": 7
+    },
+    {
+      "day": "2019-07-04",
+      "targetNumberOfSmokes": 1,
+      "smokes": [
+        {
+          "place": "1",
+          "reason": "1",
+          "id": 0
+        },
+        {
+          "place": "11",
+          "reason": "11",
+          "id": 1
+        },
+        {
+          "place": "1",
+          "id": 2
+        },
+        {
+          "place": "1",
+          "reason": "11",
+          "id": 3
+        }
+      ],
+      "id": 9
+    },
+    {
+      "day": "2019-07-03",
+      "targetNumberOfSmokes": 1,
+      "smokes": [
+        {
+          "place": "1",
+          "reason": "1",
+          "id": 0
+        }
+      ],
+      "id": 10
+    }
+  ]
 }
