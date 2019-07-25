@@ -6,18 +6,23 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
+import DeleteIcon from "@material-ui/icons/Delete";
 //// react final form
 import { Form, Field } from "react-final-form";
+import arrayMutators from "final-form-arrays";
+import { FieldArray } from "react-final-form-arrays";
 //// project files
 import FormTextField from "../components/formFields/FormTextField";
 import FormDatePickerField from "../components/formFields/FormDatePickerField";
-import SmokesTable from "./table/smokesTable/SmokesTable";
-import ButtonWithHtmlFor from "../components/button/ButtonWithHtmlFor";
+
 
 /////   materil UI styles
 const styles = theme => ({
   addDayPanel: {
-    padding: 10,    
+    padding: 10,
     width: window.innerWidth / 2,
     [theme.breakpoints.down("sm")]: {
       backgroundColor: "red",
@@ -27,6 +32,17 @@ const styles = theme => ({
   buttons: {
     padding: 10,
     margin: 10
+  },
+  paper: {
+    margin: 10,
+    backgroundColor: "#cce6ff",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%"
+  },
+  smokeButton: {
+    margin: 5
   }
 });
 
@@ -43,14 +59,11 @@ const composeValidators = (...validators) => value =>
 
 class AddDay extends React.Component {
   state = { smokes: [] };
-  onFormSubmit = values => {
+  onFormSubmit = values => {  
     this.props.onFormSubmit(values);
   };
-  onSmokesFormSubmit = values => {
-    this.props.onSmokesFormSubmit(values);
-  };
   render() {
-    const { classes } = this.props;   
+    const { classes } = this.props;    
     return (
       <Drawer
         anchor="right"
@@ -59,8 +72,23 @@ class AddDay extends React.Component {
       >
         <div className={classes.addDayPanel}>
           <Form
+            {...(this.props.selectedRowToEdit
+              ? {
+                  initialValues: { smokes: this.props.selectedRowToEdit.smokes }
+                }
+              : {})}
             onSubmit={values => this.onFormSubmit(values)}
-            render={({ handleSubmit, form, submitting, pristine, values }) => (
+            mutators={{ ...arrayMutators }}
+            render={({
+              handleSubmit,
+              form: {
+                mutators: { push, pop }
+              },
+              form,
+              submitting,
+              pristine,
+              values
+            }) => (
               <form
                 onSubmit={async event => {
                   await handleSubmit(event);
@@ -69,7 +97,7 @@ class AddDay extends React.Component {
               >
                 <Typography variant="h6">Add a day</Typography>
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={5}>
                     <FormDatePickerField
                       {...(this.props.selectedRowToEdit
                         ? { initialValue: this.props.selectedRowToEdit.day }
@@ -80,7 +108,7 @@ class AddDay extends React.Component {
                       isRequired={true}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={5}>
                     <FormTextField
                       {...(this.props.selectedRowToEdit
                         ? {
@@ -97,90 +125,97 @@ class AddDay extends React.Component {
                       isRequired={true}
                     />
                   </Grid>
+                  <Grid item xs={12} sm={10}>
+                    <Button
+                      onClick={() => push("smokes", undefined)}
+                      variant="outlined"
+                      size="medium"
+                      color="primary"
+                      className={classes.smokeButton}
+                    >
+                      Add Smoke
+                    </Button>
+                    <Button
+                      onClick={() => pop("smokes")}
+                      variant="outlined"
+                      size="medium"
+                      color="primary"
+                      className={classes.smokeButton}
+                    >
+                      Remove Smoke
+                    </Button>
+                  </Grid>
+                  <Grid container item xs={12} sm={10}>
+                    <FieldArray name="smokes">
+                      {({ fields }) =>
+                        fields.map((name, index) => {
+                          return (
+                            <Paper key={name} className={classes.paper}>
+                              <h2 style={{ margin: 20 }}>Smoke #{index + 1}</h2>
+                              <div style={{ margin: 20 }}>
+                                <FormTextField
+                                  name={`${name}.place`}
+                                  label="Place"
+                                  validate={required}
+                                />
+                              </div>
+                              <div style={{ margin: 20 }}>
+                                <FormTextField
+                                  name={`${name}.reason`}
+                                  label="Reason"
+                                />
+                              </div>
+
+                              <IconButton
+                                aria-label="Delete"
+                                className={classes.margin}
+                                onClick={() => fields.remove(index)}
+                                color="primary"
+                                style={{
+                                  cursor: "pointer",
+                                  margin: 20
+                                }}
+                              >
+                                <DeleteIcon fontSize="large" />
+                              </IconButton>
+                            </Paper>
+                          );
+                        })
+                      }
+                    </FieldArray>
+                  </Grid>
                 </Grid>
-                <input
+                <Button
+                  variant="contained"
+                  color="primary"
                   type="submit"
                   disabled={submitting}
-                  style={{ display: "none" }}
                   id="submit"
-                />
-                <input
-                  style={{ display: "none" }}
+                  className={classes.buttons}
+                >
+                  Submit
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
                   type="button"
                   onClick={form.reset}
                   disabled={submitting || pristine}
-                  id="reset"
-                />
+                  className={classes.buttons}
+                >
+                  Reset
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.buttons}
+                  onClick={this.props.onFormCancle}
+                >
+                  Cancel
+                </Button>
               </form>
             )}
           />
-          <Form
-            onSubmit={values => this.onSmokesFormSubmit(values)}
-            render={({
-              handleSubmit,
-              reset,
-              submitting,
-              pristine,
-              values,
-              form
-            }) => (
-              <form
-                onSubmit={async event => {
-                  await handleSubmit(event);
-                  form.reset();
-                }}
-              >
-                <Typography variant="h6">Add Smokes</Typography>
-                <Grid container>
-                  <Grid item xs={12} sm={6}>
-                    <FormTextField
-                      name="place"
-                      label="Place"
-                      validate={required}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <FormTextField name="reason" label="Reason" />
-                  </Grid>
-                  <Grid item xs={12} sm={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      type="submit"
-                      disabled={submitting}
-                      className={classes.buttons}
-                    >
-                      Add this smoke to this day
-                    </Button>
-                  </Grid>
-                </Grid>
-
-                {this.props.smokes.length ? (
-                  <SmokesTable data={this.props.smokes} />
-                ) : null}
-              </form>
-            )}
-          />
-          <ButtonWithHtmlFor
-            label="Submit"
-            colorType="primary"
-            htmlFor="submit"
-            className={classes.buttons}
-          />
-          <ButtonWithHtmlFor
-            label="Reset"
-            colorType="primary"
-            htmlFor="reset"
-            className={classes.buttons}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.buttons}
-            onClick={this.props.onFormCancle}
-          >
-            Cancel
-          </Button>
         </div>
       </Drawer>
     );

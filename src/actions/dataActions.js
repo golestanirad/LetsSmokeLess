@@ -1,6 +1,6 @@
 //// project files
-import { ADD_DAY, EDIT_DAY, GET_DAYS } from "./actionTypes";
-import axios from '../API/axiosApi';
+import { ADD_DAY, EDIT_DAY, GET_DAYS, SELECT_DAYS } from "./actionTypes";
+import axios from "../API/axiosApi";
 
 //////////////////////////////
 export const deleteDay = selectedRows => async dispatch => {
@@ -22,8 +22,11 @@ export const editDay = values => async dispatch => {
     method: "put",
     data: data
   });
-  console.log(123123321, values);
-  dispatch({ type: EDIT_DAY, payload: {...values,targetNumberOfSmokes: parseInt(targetNumberOfSmokes)} });
+
+  dispatch({
+    type: EDIT_DAY,
+    payload: { ...values, targetNumberOfSmokes: parseInt(targetNumberOfSmokes) }
+  });
 };
 
 ////////////////////////////////////
@@ -48,6 +51,9 @@ export const addDay = values => async dispatch => {
 //////////////////////////////////
 export const fetchDays = () => async dispatch => {
   const response = await axios.get("days");
-
   dispatch({ type: GET_DAYS, payload: response.data });
+};
+//////////////////
+export const selectDay = selectedDaysID => {
+  return { type: SELECT_DAYS, payload: selectedDaysID };
 };

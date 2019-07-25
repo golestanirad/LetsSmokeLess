@@ -10,8 +10,16 @@ import AppMainBar from "../components/appMainBar/AppMainBar";
 import DaysTable from "./table/daysTable/DaysTable";
 import AddDay from "./AddDay";
 import Graph from "../container/Graph";
-import { deleteDay, addDay, editDay, fetchDays } from "../actions/dataActions";
+import SelectedDaysDisplay from "../components/selectedDaysDisplay/selectedDaysDisplay";
+import {
+  deleteDay,
+  addDay,
+  editDay,
+  fetchDays,
+  selectDay
+} from "../actions/dataActions";
 import history from "../ReactRouterHistory/history";
+import selectedDays from "../selectors/selectedDays";
 
 const styles = themes => ({
   root: {}
@@ -20,8 +28,7 @@ const styles = themes => ({
 class App extends React.Component {
   state = {
     isPanelOpen: false,
-    selectedRowToEdit: null,
-    smokes: []
+    selectedRowToEdit: null
   };
   componentDidMount = () => {
     this.props.fetchDays();
@@ -45,23 +52,22 @@ class App extends React.Component {
   };
 
   onFormSubmit = values => {
+    if (!values.smokes) values.smokes = [];
+    let { smokes } = values;
+    const idAddedSmokes = smokes.map(smoke => ({
+      ...smoke,
+      id: Math.random()
+    }));
     if (this.state.selectedRowToEdit) {
+      values = { ...values, smokes:idAddedSmokes  };
       this.props.editDay({
         ...values,
-        smokes: this.state.smokes,
         selectedRowToEdit: this.state.selectedRowToEdit
       });
     } else {
-      this.props.addDay({ ...values, smokes: this.state.smokes });
+      this.props.addDay({ ...values, smokes: idAddedSmokes });
     }
     this.setState({ isPanelOpen: false, smokes: [], selectedRowToEdit: null });
-  };
-
-  id = 0;
-  onSmokesFormSubmit = values => {
-    const newSmokes = [...this.state.smokes];
-    newSmokes.push({ ...values, id: this.id++ });
-    this.setState({ smokes: newSmokes });
   };
 
   onFormCancle = () => {
@@ -73,6 +79,10 @@ class App extends React.Component {
     if (!isPanelOpen) {
       this.setState({ selectedRowToEdit: null, smokes: [] });
     }
+  };
+
+  onSelectDays = selectedDaysID => {
+    this.props.selectDay(selectedDaysID);
   };
 
   //////////
@@ -91,23 +101,25 @@ class App extends React.Component {
                 data={this.props.data}
                 handleDeleteDay={this.props.deleteDay}
                 handleEditDay={this.handleEditDay}
+                handleSelectDays={this.onSelectDays}
               />
             )}
           />
           <Route
             path="/newpage"
             exact
-            render={routeProps => <Graph {...routeProps} data={this.props.data}/>}
+            render={routeProps => (
+              <Graph {...routeProps} data={this.props.data} />
+            )}
           />
           <AddDay
             isAddPanelOpen={this.state.isPanelOpen}
             toggleAddPanel={this.toggleAddPanel}
-            onSmokesFormSubmit={this.onSmokesFormSubmit}
             onFormSubmit={this.onFormSubmit}
             onFormCancle={this.onFormCancle}
             selectedRowToEdit={this.state.selectedRowToEdit}
-            smokes={this.state.smokes}
           />
+          <SelectedDaysDisplay days={this.props.selectedDays} />
         </Router>
       </div>
     );
@@ -116,12 +128,13 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   test: state.test,
-  data: state.data
+  data: state.data,
+  selectedDays: selectedDays(state)
 });
 
 export default connect(
   mapStateToProps,
-  { deleteDay, addDay, editDay, fetchDays }
+  { deleteDay, addDay, editDay, fetchDays, selectDay }
 )(withStyles(styles)(App));
 
 //// 1) make delete row(s) work - DONE
@@ -147,3 +160,6 @@ export default connect(
 ///// 21) check the response and if it has been successful dispatch the result or show error to users
 /// 22) add a page explaing the app use
 //// 23) add propTypes to all pages if needed
+//// 24) adding reselect - DONE
+////  25) use field array and only one form on addDays
+//// 260 numerb of smoke won't chage in edit

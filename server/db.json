@@ -1,77 +1,44 @@
 {
   "days": [
     {
+      "day": "2019-07-01",
+      "targetNumberOfSmokes": 1,
+      "smokes": [
+        {
+          "place": "1",
+          "reason": "1",
+          "id": 0.5383791723863554
+        }
+      ],
+      "id": 1
+    },
+    {
       "day": "2019-07-05",
-      "targetNumberOfSmokes": 1,
+      "targetNumberOfSmokes": 2,
       "smokes": [
         {
-          "place": "11",
-          "reason": "1",
-          "id": 0
+          "reason": "22",
+          "place": "2",
+          "id": 0.876623124357607
         },
         {
-          "place": "1",
-          "reason": "11",
-          "id": 1
-        }
-      ],
-      "id": 6
-    },
-    {
-      "day": "2019-07-07",
-      "targetNumberOfSmokes": 3,
-      "smokes": [
-        {
-          "place": "3",
-          "reason": "3",
-          "id": 0
-        }
-      ],
-      "id": 7
-    },
-    {
-      "day": "2019-07-04",
-      "targetNumberOfSmokes": 1,
-      "smokes": [
-        {
-          "place": "1",
-          "reason": "1",
-          "id": 0
+          "place": "2",
+          "reason": "2",
+          "id": 0.7230991922842482
         },
         {
-          "place": "11",
-          "reason": "11",
-          "id": 1
-        },
-        {
-          "place": "1",
-          "id": 2
-        },
-        {
-          "place": "1",
-          "reason": "11",
-          "id": 3
+          "place": "2",
+          "reason": "2",
+          "id": 0.37578573509388624
         }
       ],
-      "id": 9
+      "id": 2
     },
     {
-      "day": "2019-07-03",
-      "targetNumberOfSmokes": 1,
-      "smokes": [
-        {
-          "place": "1",
-          "reason": "1",
-          "id": 0
-        }
-      ],
-      "id": 10
-    },
-    {
-      "day": "2019-07-06",
-      "targetNumberOfSmokes": 1,
+      "day": "2019-07-19",
+      "targetNumberOfSmokes": 22,
       "smokes": [],
-      "id": 11
+      "id": 3
     }
   ]
 }

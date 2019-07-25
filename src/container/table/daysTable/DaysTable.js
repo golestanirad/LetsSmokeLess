@@ -14,10 +14,6 @@ import DaysTableHead from "./DaysTableHead";
 import DaysTableToolbar from "./DaysTableToolbar";
 
 const desc = (a, b, orderBy) => {
-  console.log("typeof b[orderBy]", typeof b[orderBy]);
-  console.log(" b[orderBy]", b[orderBy]);
-  console.log("typeof a[orderBy]", typeof a[orderBy]);
-  console.log(" a[orderBy]", a[orderBy]);
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -77,10 +73,13 @@ class DaysTable extends React.Component {
 
   handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: this.props.data.map(n => n.id) }));
+      const selectedDays = this.props.data.map(n => n.id);
+      this.setState({ selected: selectedDays });
+      this.props.handleSelectDays(selectedDays);
       return;
     }
     this.setState({ selected: [] });
+    this.props.handleSelectDays([]);
   };
 
   handleRowClick = (event, id) => {
@@ -101,6 +100,7 @@ class DaysTable extends React.Component {
       );
     }
     this.setState({ selected: newSelected });
+    this.props.handleSelectDays(newSelected);
   };
 
   handleChangePage = (event, page) => {
@@ -123,7 +123,6 @@ class DaysTable extends React.Component {
     if (targetNumberOfSmokes === smokes) {
       return "yellow";
     }
-
     if (targetNumberOfSmokes < smokes) {
       return "#ff704d";
     }
